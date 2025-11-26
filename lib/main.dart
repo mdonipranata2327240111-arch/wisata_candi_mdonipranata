@@ -1,36 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:wisata_candi/data/candi_data.dart';
-import 'package:wisata_candi/models/candi.dart';
-import 'package:wisata_candi/widgets/item_card.dart';
+import 'package:wisata_candi/screens/home_screen.dart';
+import 'package:wisata_candi/screens/main_screen.dart';
+import 'package:wisata_candi/screens/search_screen.dart';
+import 'package:wisata_candi/screens/sign_in_screen.dart';
+import 'package:wisata_candi/screens/sign_up_screen.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
+void main() {
+  runApp(const MyApp());
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // TODO: 1 Buat APPBAR dengan judul wisata Candi
-      appBar: AppBar(title: Text("Wisata Candi")),
-      // TODO: 2 Buat body dengan GridView.builder
-      body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Wisata Candi',
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: Colors.deepPurple),
+          titleTextStyle: TextStyle(
+            color: Colors.deepPurple,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
-          padding: EdgeInsets.all(8),
-          itemCount: candiList.length,
-          itemBuilder: (context, index){
-            Candi candi = candiList[index];
-            return ItemCard(
-              candi: candi,
-            );
-          }
+        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple).copyWith(
+          primary: Colors.deepPurple,
+          surface: Colors.deepPurple[50],
+        ),
+        useMaterial3: true,
       ),
-      // TODO: 3 Buat ItemCard Sebagai retrun value dari GridView.builder
+      home: MainScreen(),
+      initialRoute: '/',
+      routes: {
+        '/homescreen': (context) => const HomeScreen(),
+        '/signin': (context) => const SignInScreen(),
+        '/signup': (context) => const SignUpScreen(),
+      },
     );
   }
 }
